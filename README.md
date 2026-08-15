@@ -2,7 +2,7 @@
 
 An agentic coding CLI and TUI, built from scratch in Rust on Claude and the Model Context Protocol.
 
-> **Source-available showcase.** This repository documents LightShell's design and engineering. The implementation is proprietary and under active development — the core agent engine is a private SDK. For fully-readable, buildable code extracted from this project, see **[larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize)** (LLM input-safety toolkit: prompt-injection defense + secret redaction, Apache-2.0, CI-green).
+> **Source-available showcase.** This repository documents LightShell's design and engineering. The implementation is proprietary and under active development; the core agent engine is a private SDK. For fully-readable, buildable code extracted from this project, see **[larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize)** (LLM input-safety toolkit: prompt-injection defense + secret redaction, Apache-2.0, CI-green).
 
 LightShell is a coding agent you run in your terminal: a full-screen TUI and a scriptable CLI over the same binary, driving Claude (and other providers) through a real MCP client, a built-in tool suite, sub-agents, and sessions that resume instantly. ~157,000 lines of Rust across 345 source files, **4,100+ tests** in a six-suite pyramid, held to a zero-panic production standard (no `.unwrap()` / `panic!()` in shipping code, enforced in CI).
 
@@ -11,7 +11,7 @@ LightShell is a coding agent you run in your terminal: a full-screen TUI and a s
 ## What it does
 
 - **Multi-provider** — Claude (default), OpenAI, Mistral, Codestral, Ollama (local + cloud), OpenRouter, behind one provider abstraction with automatic fallback.
-- **Real MCP client** — connects to any Model Context Protocol server over stdio, with **Tool Search + deferred tool loading** (Anthropic's spec) so large tool sets don't burn context — ~85% token reduction on tool-heavy sessions.
+- **Real MCP client** — connects to any Model Context Protocol server over stdio, with **Tool Search + deferred tool loading** (Anthropic's spec) so large tool sets don't burn context, cutting token use ~85% on tool-heavy sessions.
 - **Built-in tool suite** — Bash, file Read/Write/Edit, Glob, Grep, and sub-agent spawning, with streaming execution and diff previews.
 - **Full-terminal TUI** — `ratatui` UI with a diff viewer, live tool feed, syntax highlighting, and a real-time activity oscilloscope.
 - **Instant-resume sessions** — per-directory session state serializes and restores in a keystroke; pick up exactly where you left off, or `--fresh` for a clean slate.
