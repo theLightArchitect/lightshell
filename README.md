@@ -10,16 +10,16 @@ LightShell is a coding agent you run in your terminal: a full-screen TUI and a s
 
 ## What it does
 
-- **Multi-provider** — Claude (default), OpenAI, Mistral, Codestral, Ollama (local + cloud), OpenRouter, behind one provider abstraction with automatic fallback.
-- **Real MCP client** — connects to any Model Context Protocol server over stdio, with **Tool Search + deferred tool loading** (Anthropic's spec) so large tool sets don't burn context, cutting token use ~85% on tool-heavy sessions.
-- **Built-in tool suite** — Bash, file Read/Write/Edit, Glob, Grep, and sub-agent spawning, with streaming execution and diff previews.
-- **Full-terminal TUI** — `ratatui` UI with a diff viewer, live tool feed, syntax highlighting, and a real-time activity oscilloscope.
-- **Instant-resume sessions** — per-directory session state serializes and restores in a keystroke; pick up exactly where you left off, or `--fresh` for a clean slate.
-- **Persistent session angel (lamux)** — a tmux-like Unix-socket daemon that keeps agent sessions alive across attach/detach, with a shared wire protocol so no two sides can drift.
-- **Knowledge vault** — injects relevant context from a local Markdown vault into every session, with untrusted-content sanitization on the way in.
-- **Hooks + guardrails** — pre/post-tool hooks (cargo check, test guards, assertion guards) that can block a tool call before it runs.
-- **Training export** — export sessions to ChatML, ShareGPT, GRPO, DeepSeek-R1, NeMo, and more.
-- **Process sandbox** — opt-in OS-level isolation via macOS Seatbelt / Linux Landlock.
+- **Multi-provider**: Claude (default), OpenAI, Mistral, Codestral, Ollama (local + cloud), OpenRouter, behind one provider abstraction with automatic fallback.
+- **Real MCP client**: connects to any Model Context Protocol server over stdio, with **Tool Search + deferred tool loading** (Anthropic's spec) so large tool sets don't burn context, cutting token use ~85% on tool-heavy sessions.
+- **Built-in tool suite**: Bash, file Read/Write/Edit, Glob, Grep, and sub-agent spawning, with streaming execution and diff previews.
+- **Full-terminal TUI**: `ratatui` UI with a diff viewer, live tool feed, syntax highlighting, and a real-time activity oscilloscope.
+- **Instant-resume sessions**: per-directory session state serializes and restores in a keystroke; pick up exactly where you left off, or `--fresh` for a clean slate.
+- **Persistent session angel (lamux)**: a tmux-like Unix-socket daemon that keeps agent sessions alive across attach/detach, with a shared wire protocol so no two sides can drift.
+- **Knowledge vault**: injects relevant context from a local Markdown vault into every session, with untrusted-content sanitization on the way in.
+- **Hooks + guardrails**: pre/post-tool hooks (cargo check, test guards, assertion guards) that can block a tool call before it runs.
+- **Training export**: export sessions to ChatML, ShareGPT, GRPO, DeepSeek-R1, NeMo, and more.
+- **Process sandbox**: opt-in OS-level isolation via macOS Seatbelt / Linux Landlock.
 
 ---
 
@@ -68,9 +68,9 @@ flowchart TB
 
 **lamux — a session angel.** A Unix-socket daemon holds long-lived agent sessions; clients attach and detach like tmux. The wire protocol (`ClientMsg` / `ServerMsg`) is a single shared source of truth, so the daemon and every client are guaranteed to speak the same language.
 
-**Evaluation & reliability.** A six-suite test pyramid — unit, property/stress/chaos, integration, acceptance journeys, security, and **golden-transcript + LLM-judge evals** — guards behavior against regressions. Shipping code is held to a zero-panic standard, enforced by a pre-commit `unwrap-check` and clippy-as-errors.
+**Evaluation and reliability.** A six-suite test pyramid (unit, property/stress/chaos, integration, acceptance journeys, security, and golden-transcript + LLM-judge evals) guards behavior against regressions. Shipping code is held to a zero-panic standard, enforced by a pre-commit `unwrap-check` and clippy-as-errors.
 
-**Input safety, built in.** Untrusted content (vault entries, tool output, compacted summaries) is sanitized before it reaches the model, and secrets are redacted before anything is logged. That layer is open-sourced in full as **[larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize)** — read it there.
+**Input safety, built in.** Untrusted content (vault entries, tool output, compacted summaries) is sanitized before it reaches the model, and secrets are redacted before anything is logged. That layer is open-sourced in full as **[larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize)**: read it there.
 
 ---
 
@@ -87,11 +87,11 @@ flowchart TB
 
 ## Engineering standards
 
-- **Zero-panic** — `.unwrap()` / `.expect()` are blocked in shipping code by a pre-commit script; error paths return typed results.
-- **Six-suite test pyramid** — 4,100+ tests, 101 integration files, plus golden-transcript regression and an opt-in LLM-judge rubric.
-- **Wire-protocol single source of truth** — the mux protocol types are shared, never duplicated, so the daemon and clients can't drift.
-- **Baseline gate** — an A/B + wire-protocol + fingerprint check runs before every push; a regression either gets fixed or an explicit, documented baseline change.
-- **Security gates** — secret-scanning and injection-defense tests are part of the suite, not an afterthought.
+- **Zero-panic**: `.unwrap()` / `.expect()` are blocked in shipping code by a pre-commit script; error paths return typed results.
+- **Six-suite test pyramid**: 4,100+ tests, 101 integration files, plus golden-transcript regression and an opt-in LLM-judge rubric.
+- **Wire-protocol single source of truth**: the mux protocol types are shared, never duplicated, so the daemon and clients can't drift.
+- **Baseline gate**: an A/B + wire-protocol + fingerprint check runs before every push; a regression either gets fixed or an explicit, documented baseline change.
+- **Security gates**: secret-scanning and injection-defense tests are part of the suite, not an afterthought.
 
 ---
 
@@ -103,6 +103,6 @@ Rust · `tokio` · `ratatui` · MCP over stdio · a provider abstraction across 
 
 ## Status & license
 
-Actively developed. This repository is a **source-available showcase** — see [LICENSE](LICENSE). The full implementation is proprietary; the extracted input-safety layer is open source at [larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize).
+Actively developed. This repository is a **source-available showcase**: see [LICENSE](LICENSE). The full implementation is proprietary; the extracted input-safety layer is open source at [larc-sanitize](https://github.com/TheLightArchitects/larc-sanitize).
 
 Built solo by [Kevin Tan](https://github.com/theLightArchitect).
